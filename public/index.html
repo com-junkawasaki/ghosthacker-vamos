@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>GHOST HACKER: VAMOS A BAILAR</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #0f1115;
+      color: #e8e8ec;
+      font-family: -apple-system, "Hiragino Sans", sans-serif;
+    }
+    .vamos-app {
+      width: min(480px, 90vw);
+      padding: 2rem;
+      border: 1px solid #2a2d36;
+      border-radius: 12px;
+      background: #161922;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 0.9rem;
+    }
+    .vamos-app h1 { font-size: 1.1rem; margin: 0; letter-spacing: 0.04em; }
+    .vamos-sub { color: #7a7f8f; font-size: 0.85rem; margin: 0; }
+    .vamos-round {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.7rem;
+    }
+    .vamos-round h2 { font-size: 1rem; margin: 0; color: #cfd3e0; }
+    .vamos-target { font-size: 1.4rem; font-weight: 700; letter-spacing: 0.03em; }
+    .vamos-turn { color: #9096a8; font-size: 0.85rem; margin: 0; }
+    .vamos-buffer { color: #cfd3e0; font-size: 0.85rem; min-height: 1.2em; }
+    .vamos-choices {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+    .vamos-choices--stacked { flex-direction: column; align-items: stretch; }
+    .vamos-choices button {
+      padding: 0.6rem 1rem;
+      border-radius: 8px;
+      border: 1px solid #3a3f4d;
+      background: #1e2230;
+      color: inherit;
+      font-size: 0.95rem;
+      cursor: pointer;
+    }
+    .vamos-choices button:hover { background: #2a3040; }
+    .vamos-choices button:disabled { opacity: 0.4; cursor: not-allowed; }
+    .vamos-controls { display: flex; gap: 0.6rem; }
+    .vamos-controls button {
+      padding: 0.7rem 1.2rem;
+      border-radius: 8px;
+      border: 1px solid #3a3f4d;
+      background: #1e2230;
+      color: inherit;
+      font-size: 0.9rem;
+      cursor: pointer;
+    }
+    .vamos-controls button:disabled { opacity: 0.4; cursor: not-allowed; }
+    .vamos-lock { font-weight: 700; letter-spacing: 0.03em; }
+    .vamos-results, .vamos-ranking {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+    }
+    .vamos-result-line, .vamos-rank-line { margin: 0; color: #cfd3e0; font-size: 0.9rem; }
+    .vamos-winner { font-size: 1rem; font-weight: 700; }
+    .vamos-app button.vamos-restart,
+    .vamos-round > button {
+      padding: 0.7rem 2rem;
+      border-radius: 8px;
+      border: 1px solid #3a3f4d;
+      background: #1e2230;
+      color: inherit;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div id="app"></div>
+  <script src="main.js"></script>
+</body>
+</html>

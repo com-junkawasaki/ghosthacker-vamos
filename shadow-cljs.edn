@@ -1,0 +1,9 @@
+;; shadow-cljs build for the VAMOS A BAILAR browser host adapter
+;; (ADR-2607100900 follow-up (b)). Same layout as the other portfolio
+;; titles' browser builds.
+{:deps   {:aliases [:cljs]}
+ :builds {:app {:target     :browser
+                :output-dir "public"
+                :asset-path "."
+                :modules    {:main {:init-fn ghosthacker-vamos.web/init}}
+                :dev-http   {8302 "public"}}}}
