@@ -1,0 +1,50 @@
+{:schema "kotoba-ghosthacker-vamos-migration/v1"
+ :profile :ghosthacker-vamos/party-tally-v1
+ :legacy {:engine "src/ghosthacker_vamos/core.cljc"
+          :fixture "src/ghosthacker_vamos/roster.cljc"
+          :status :retained-general-oracle}
+ :canonical {:engine "src/ghosthacker_vamos/bounded.kotoba"
+             :conformance "test/ghosthacker_vamos/bounded_conformance.kotoba"}
+ :domain {:roster :four-player-fixed
+          :rounds [:reaction-tap :quick-pick :sequence-recall]
+          :reaction-tap {:target 42 :close-window 5
+                         :points {:bullseye 100 :close 40 :miss 0}}
+          :quick-pick {:correct-index 0 :points {:correct 80 :incorrect 0}}
+          :sequence-recall {:length 4 :canonical-order [0 1 2 3]
+                            :points {:perfect 90 :partial 30 :miss 0}}
+          :input-encoding
+          "flat vector-i64 of exactly 24 values: 4 reaction-tap guesses
+           (roster order), 4 quick-pick pick-indices (roster order), then
+           4 groups of 4 sequence-recall answer-positions (one group per
+           roster player, in roster order)."}
+ :excluded [:arbitrary-roster-size :arbitrary-round-count :roster-iteration
+            :ranking-sort-and-tiebreak :winners-computation
+            :round-dispatch-by-keyword :terminal-input :browser-state
+            :persistence]
+ :safety {:ambient-authority false :host-capabilities [] :mutable-state false
+          :fuel {:initial 512 :replenishable false}
+          :wrong-input-count false}
+ :verification {:legacy {:tests 22 :assertions 63 :failures 0 :errors 0}
+                :positive-cases [:all-bullseye-correct-perfect :mixed-boundary]
+                :negative-cases [:three-element-vector :twenty-three-element-vector
+                                 :twenty-five-element-vector]
+                :boundary-note "the mixed case pins the reaction-tap close-window
+                                 boundary exactly (diff=5 -> close/40) alongside a
+                                 miss (diff=58 -> 0) and a bullseye (diff=0 -> 100)"
+                :hand-verification "both positive-case expected tallies
+                                     ([270 270 270 270] and [270 70 120 0] for
+                                     ren/nei/kota/mei) were derived independently
+                                     from the legacy core.cljc judgment tables
+                                     before compiling, then confirmed to match
+                                     both the reference Web and instantiated
+                                     typed-Wasm execution -- not just internal
+                                     self-consistency"
+                :web {:main 42 :tally-check 42 :reject-check 42}
+                :wasm {:main 42 :tally-check 42 :reject-check 42}
+                :required-capabilities []
+                :local-verification
+                {:clojure-test {:tests 22 :assertions 63 :failures 0 :errors 0}
+                 :lint {:errors 0 :warnings 0}
+                 :kotoba-compile [:js-browser :wasm32-browser]
+                 :kotoba-conformance :passed}}
+ :cutover {:bounded-profile-authorized true :general-cljc-oracle-retained true}}

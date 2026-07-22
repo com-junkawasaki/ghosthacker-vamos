@@ -85,6 +85,16 @@ clojure -M:lint
 
 `main`へのpush/PRで `.github/workflows/test.yml` が自動でテスト+lintを実行する。
 
+`src/ghosthacker_vamos/bounded.kotoba`は固定4人roster(Ren/Nei/Kota/Mei)・
+固定3ラウンド(reaction-tap target=42/close-window=5、quick-pick correct-index=0、
+sequence-recall canonical-order=[0 1 2 3])に対し、24要素のflat `vector-i64`
+(reaction-tapの4推測値・quick-pickの4選択index・sequence-recallの4人分×4回答
+position)から`:tally`(4人分のi64合計点)を計算するcapability-freeKotoba
+プロファイル。長さ24以外の入力はfail closed(`:wrong-input-count`)。任意人数
+のroster、ラウンド追加、ランキングのソート・同点タイブレーク、勝者判定、
+terminal/browser state はCLJC oracle(`core.cljc`)に残す。詳細は
+[migration/party-tally-v1.edn](migration/party-tally-v1.edn)。
+
 ターミナルで遊んでみる:
 
 ```bash
