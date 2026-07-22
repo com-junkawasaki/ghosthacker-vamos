@@ -1,0 +1,51 @@
+(ns ghosthacker-vamos.bounded-conformance
+  (:require [ghosthacker-vamos.bounded :as bounded])
+  (:export [main tally-check reject-check]))
+
+(def tally-type
+  [:record :ghosthacker-vamos/tally
+   [[:ren :i64] [:nei :i64] [:kota :i64] [:mei :i64]]])
+(def tally-result-type [:result [:alias tally-type] :keyword])
+
+(defn expected-ren [case-id :i64] :i64 (if (= case-id 0) 270 (if (= case-id 1) 270 0)))
+(defn expected-nei [case-id :i64] :i64 (if (= case-id 0) 270 (if (= case-id 1) 70 0)))
+(defn expected-kota [case-id :i64] :i64 (if (= case-id 0) 270 (if (= case-id 1) 120 0)))
+(defn expected-mei [case-id :i64] :i64 (if (= case-id 0) 270 (if (= case-id 1) 0 0)))
+
+(defn tally-check [inputs :vector-i64 case-id :i64] :i64
+  (match-result (bounded/play-party-tally inputs) tally-result-type
+    (ok tally
+      (if (= (expected-ren case-id) (record-get tally-type tally :ren))
+        (if (= (expected-nei case-id) (record-get tally-type tally :nei))
+          (if (= (expected-kota case-id) (record-get tally-type tally :kota))
+            (if (= (expected-mei case-id) (record-get tally-type tally :mei)) 42 5)
+            4)
+          3)
+        2))
+    (err reason 90)))
+
+(defn reject-check [inputs :vector-i64] :i64
+  (match-result (bounded/play-party-tally inputs) tally-result-type
+    (ok unexpected 1)
+    (err reason 42)))
+
+(defn main [] :i64
+  (if (= 42 (tally-check
+              (vector-i64 42 42 42 42
+                          0 0 0 0
+                          0 1 2 3
+                          0 1 2 3
+                          0 1 2 3
+                          0 1 2 3)
+              0))
+    (if (= 42 (tally-check
+                (vector-i64 42 47 37 100
+                            0 1 0 3
+                            0 1 2 3
+                            1 0 2 3
+                            3 2 1 0
+                            2 3 0 1)
+                1))
+      (if (= 42 (reject-check (vector-i64 1 2 3))) 42 2)
+      1)
+    0))

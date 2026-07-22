@@ -26,3 +26,15 @@ jobs:
         run: clojure -M:test
       - name: Lint (clj-kondo)
         run: clojure -M:lint
+      - name: Compile bounded party-tally profile
+        run: |
+          mkdir -p target/kotoba
+          clojure -M:kotoba compile test/ghosthacker_vamos/bounded_conformance.kotoba \
+            --source-path src --target js-browser --output target/kotoba/vamos.mjs
+          clojure -M:kotoba compile test/ghosthacker_vamos/bounded_conformance.kotoba \
+            --source-path src --target wasm32-browser --output target/kotoba/vamos.wasm
+      - name: Execute Web and typed Wasm conformance
+        run: |
+          compiler_src="$(clojure -Spath -M:kotoba | tr ':' '\n' | grep '/compiler/' | head -1)"
+          node scripts/verify-kotoba.mjs target/kotoba/vamos.mjs \
+            target/kotoba/vamos.wasm "$(dirname "$compiler_src")/runtime/browser-host.mjs"

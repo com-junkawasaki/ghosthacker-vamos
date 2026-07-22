@@ -15,6 +15,10 @@
   ;; clj-kondo as a Clojars lib (no Homebrew/system install needed).
   :lint {:extra-deps {clj-kondo/clj-kondo {:mvn/version "2024.09.27"}}
          :main-opts ["-m" "clj-kondo.main" "--lint" "src" "test"]}
+  :kotoba {:extra-deps {io.github.kotoba-lang/compiler
+                        {:git/url "https://github.com/kotoba-lang/compiler.git"
+                         :git/sha "def5161be96d489539175813326a316da46268be"}}
+           :main-opts ["-m" "kotoba.compiler.cli"]}
   ;; Browser host adapter (ADR-2607100900 follow-up (b)): plain reagent,
   ;; no Web Audio needed -- VAMOS A BAILAR is entirely click-driven
   ;; (pass-the-device party UX), same low-complexity end of the host

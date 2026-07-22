@@ -1,0 +1,58 @@
+(ns ghosthacker-vamos.bounded
+  (:export [play-party-tally]))
+
+(def tally-type
+  [:record :ghosthacker-vamos/tally
+   [[:ren :i64] [:nei :i64] [:kota :i64] [:mei :i64]]])
+(def tally-result-type [:result [:alias tally-type] :keyword])
+
+(defn fail [reason :keyword] [:alias tally-result-type]
+  (result-err-of tally-result-type reason))
+
+(defn magnitude [value :i64] :i64
+  (if (< value 0) (- value) value))
+
+(defn reaction-tap-points [guess :i64] :i64
+  (let [diff (magnitude (- 42 guess))]
+    (if (= diff 0) 100
+      (if (<= diff 5) 40 0))))
+
+(defn quick-pick-points [pick :i64] :i64
+  (if (= pick 0) 80 0))
+
+(defn sequence-recall-match-count [a0 :i64 a1 :i64 a2 :i64 a3 :i64] :i64
+  (+ (if (= a0 0) 1 0)
+     (+ (if (= a1 1) 1 0)
+        (+ (if (= a2 2) 1 0)
+           (if (= a3 3) 1 0)))))
+
+(defn sequence-recall-points [a0 :i64 a1 :i64 a2 :i64 a3 :i64] :i64
+  (let [matches (sequence-recall-match-count a0 a1 a2 a3)]
+    (if (= matches 4) 90
+      (if (> matches 0) 30 0))))
+
+(defn play-party-tally [inputs :vector-i64] [:alias tally-result-type]
+  (if (= (vector-count inputs) 24)
+    (let [g0 (vector-at inputs 0) g1 (vector-at inputs 1)
+          g2 (vector-at inputs 2) g3 (vector-at inputs 3)
+          p0 (vector-at inputs 4) p1 (vector-at inputs 5)
+          p2 (vector-at inputs 6) p3 (vector-at inputs 7)
+          r0a0 (vector-at inputs 8) r0a1 (vector-at inputs 9)
+          r0a2 (vector-at inputs 10) r0a3 (vector-at inputs 11)
+          r1a0 (vector-at inputs 12) r1a1 (vector-at inputs 13)
+          r1a2 (vector-at inputs 14) r1a3 (vector-at inputs 15)
+          r2a0 (vector-at inputs 16) r2a1 (vector-at inputs 17)
+          r2a2 (vector-at inputs 18) r2a3 (vector-at inputs 19)
+          r3a0 (vector-at inputs 20) r3a1 (vector-at inputs 21)
+          r3a2 (vector-at inputs 22) r3a3 (vector-at inputs 23)]
+      (result-ok-of tally-result-type
+        (record tally-type
+          (+ (reaction-tap-points g0)
+             (+ (quick-pick-points p0) (sequence-recall-points r0a0 r0a1 r0a2 r0a3)))
+          (+ (reaction-tap-points g1)
+             (+ (quick-pick-points p1) (sequence-recall-points r1a0 r1a1 r1a2 r1a3)))
+          (+ (reaction-tap-points g2)
+             (+ (quick-pick-points p2) (sequence-recall-points r2a0 r2a1 r2a2 r2a3)))
+          (+ (reaction-tap-points g3)
+             (+ (quick-pick-points p3) (sequence-recall-points r3a0 r3a1 r3a2 r3a3))))))
+    (fail :wrong-input-count)))
