@@ -19,8 +19,9 @@
 (def ^:private play-match! #'terminal/play-match!)
 
 (defn- silently [thunk]
-  (binding [*out* (java.io.StringWriter.)]
-    (thunk)))
+  (let [result (atom nil)]
+    (with-out-str (reset! result (thunk)))
+    @result))
 
 (deftest read-int-boundary-test
   (testing "整数が入力されるまで読み直す"
