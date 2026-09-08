@@ -16,7 +16,7 @@
   round-result screen shows everyone's judgment before advancing;
   after the last round, a final leaderboard (ranking + winner(s)) is
   shown with a restart control."
-  (:require [clojure.string :as str]
+  (:require [kotoba.lang.text :as str]
             [reagent.core :as r]
             [reagent.dom :as rdom]
             [ghosthacker-vamos.core :as core]
