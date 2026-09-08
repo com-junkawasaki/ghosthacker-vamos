@@ -13,7 +13,7 @@
   so far.
 
   Run: clojure -M -m ghosthacker-vamos.terminal"
-  (:require [clojure.string :as str]
+  (:require [kotoba.lang.text :as str]
             [ghosthacker-vamos.core :as core]
             [ghosthacker-vamos.roster :as roster]))
 
