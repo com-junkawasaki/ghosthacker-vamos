@@ -40,7 +40,7 @@ Ghost Hacker ゲームポートフォリオ第9弾。設計は
 
 ## 実装範囲
 
-`src/ghosthacker_vamos/core.cljc` -- pure、host-free。判定/state核:
+`src/ghosthacker_vamos/core.cljk` -- pure、host-free。判定/state核:
 
 - `judge-reaction-tap`/`judge-quick-pick`/`judge-sequence-recall` -- 3種の
   ミニゲームそれぞれの判定関数
@@ -53,16 +53,16 @@ Ghost Hacker ゲームポートフォリオ第9弾。設計は
 - `play-party`/`play-party-summary` -- roster + 全ラウンド分のround-spec
   から最終stateを作る一括再生
 
-`src/ghosthacker_vamos/roster.cljc` -- サンプルのroster（4人）と、3ラウンド
+`src/ghosthacker_vamos/roster.cljk` -- サンプルのroster（4人）と、3ラウンド
 分のサンプルデータ（`sample-match`）。
 
-**プレイ可能な最小プロトタイプ**として `src/ghosthacker_vamos/terminal.clj`
+**プレイ可能な最小プロトタイプ**として `src/ghosthacker_vamos/terminal.cljk`
 がある。FLOW/HARMONYと違い実時間のビート判定が無いため、`future`/agent
 スレッドプールを一切使わない素朴な「順番に手渡し」REPLループ。各ラウンドで
 roster全員が順に入力し、EOF(または途中打ち切り)になればそこまでのstateで
 リザルトを出す。
 
-**ブラウザで遊べるホストアダプタ**が `src/ghosthacker_vamos/web.cljs`
+**ブラウザで遊べるホストアダプタ**が `src/ghosthacker_vamos/web.cljk`
 （reagent、ADR-2607100900 follow-up (b)）: TUNING/ECHOESと同じ低複雑度側の
 構成（Web Audio不要）。全ての入力をボタンクリックだけで完結させている
 （reaction-tapは目標値からのズレ量を選ぶプリセットボタン、quick-pickは

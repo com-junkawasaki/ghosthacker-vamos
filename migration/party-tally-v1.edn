@@ -1,7 +1,7 @@
 {:schema "kotoba-ghosthacker-vamos-migration/v1"
  :profile :ghosthacker-vamos/party-tally-v1
- :legacy {:engine "src/ghosthacker_vamos/core.cljc"
-          :fixture "src/ghosthacker_vamos/roster.cljc"
+ :legacy {:engine "src/ghosthacker_vamos/core.cljk"
+          :fixture "src/ghosthacker_vamos/roster.cljk"
           :status :retained-general-oracle}
  :canonical {:engine "src/ghosthacker_vamos/bounded.kotoba"
              :conformance "test/ghosthacker_vamos/bounded_conformance.kotoba"}
