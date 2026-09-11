@@ -12,7 +12,7 @@
   match and falls through to whatever result the party has accumulated
   so far.
 
-  Run: clojure -M -m ghosthacker-vamos.terminal"
+  Run: kbb -M -m ghosthacker-vamos.terminal"
   (:require [kotoba.lang.text :as str]
             [ghosthacker-vamos.core :as core]
             [ghosthacker-vamos.roster :as roster]))
@@ -144,7 +144,7 @@
           (recur (core/play-round state filled) (next rs)))))))
 
 (defn -main
-  "Entry point for `clojure -M -m ghosthacker-vamos.terminal`."
+  "Entry point for `kbb -M -m ghosthacker-vamos.terminal`."
   [& _args]
   (println "GHOST HACKER: VAMOS A BAILAR — 放課後パーティナイト")
   (println (format "プレイヤー: %s"

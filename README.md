@@ -74,13 +74,13 @@ roster全員が順に入力し、EOF(または途中打ち切り)になればそ
 ## 開発
 
 ```bash
-clojure -M:test
+kbb -M:test
 ```
 
 Lint（clj-kondo、Clojars経由でHomebrew等の別インストール不要）:
 
 ```bash
-clojure -M:lint
+kbb -M:lint
 ```
 
 `main`へのpush/PRで `.github/workflows/test.yml` が自動でテスト+lintを実行する。
@@ -98,15 +98,15 @@ terminal/browser state はCLJC oracle(`core.cljc`)に残す。詳細は
 ターミナルで遊んでみる:
 
 ```bash
-clojure -M -m ghosthacker-vamos.terminal
+kbb -M -m ghosthacker-vamos.terminal
 ```
 
 ブラウザで遊んでみる（`npm install`は初回のみ）:
 
 ```bash
 npm install
-npx shadow-cljs watch app   # http://localhost:8302 で自動リロード開発
-npx shadow-cljs release app # public/ に静的バンドルをビルド(デプロイ可能)
+amu compile --target wasm32-browser app   # http://localhost:8302 で自動リロード開発
+amu compile --target wasm32-browser app # public/ に静的バンドルをビルド(デプロイ可能)
 ```
 
 変更履歴は [CHANGELOG.md](CHANGELOG.md)。
