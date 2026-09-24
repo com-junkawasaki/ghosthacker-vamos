@@ -1,5 +1,5 @@
 (ns ghosthacker-vamos.core-test
-  (:require [clojure.test :refer [deftest is testing]]
+  (:require [kotoba.test :refer [deftest is testing]]
             [ghosthacker-vamos.core :as core]
             [ghosthacker-vamos.roster :as roster]))
 
